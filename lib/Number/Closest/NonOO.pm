@@ -7,7 +7,7 @@ use warnings;
 use Data::Clone;
 use Scalar::Util 'looks_like_number';
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 require Exporter;
 our @ISA       = qw(Exporter);
@@ -110,6 +110,10 @@ do nothing about it and will produce a warning if target number is an infinite,
 largest positive numbers, -Inf is closest to -Inf and after that largest
 negative numbers.
 
+I'd reckon that `number` is the behavior that most people want, but if you don't
+deal with infinites, you can just use `nothing` (which is the default unless
+target number is infinite).
+
 _
         },
     },
@@ -143,15 +147,14 @@ Number::Closest::NonOO - Find number(s) closest to a number in a list of numbers
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 SYNOPSIS
 
  use Number::Closest::NonOO qw(find_closest_number find_farthest_number);
- my $nums = find_closest_number(number=>3, numbers=>[1, 3, 5, 10], items => 2);
- # => [3, 1];
+ my $nums = find_closest_number(number=>3, numbers=>[1, 3, 5, 10], items => 2); # => [3, 1]
 
- $nums = find_farthest_number(number=>3, numbers=>[1, 3, 5, 10]);
+ $nums = find_farthest_number(number=>3, numbers=>[1, 3, 5, 10]); # => 10
 
 =head1 DESCRIPTION
 
@@ -162,8 +165,7 @@ version 0.01
 You can filter (grep) your list of numbers first, for example to find numbers
 that are closest I<and smaller or equal to> 3:
 
- my @nums = (1, 3, 5, 2, 4);
- @nums = grep {$_ <= 3} @nums;
+ my @nums = grep {$_ <= 3} 1, 3, 5, 2, 4;
  my $res = find_closest_number(number => 3, numbers => \@nums);
 
 =head2 How do I find unique closest number(s)?
@@ -210,6 +212,10 @@ C<number> will treat Inf like a very large number, i.e. Inf is closest to Inf an
 largest positive numbers, -Inf is closest to -Inf and after that largest
 negative numbers.
 
+I'd reckon that C<number> is the behavior that most people want, but if you don't
+deal with infinites, you can just use C<nothing> (which is the default unless
+target number is infinite).
+
 =item * B<items> => I<int> (default: 1)
 
 Return this number of closest numbers.
@@ -250,6 +256,10 @@ do nothing about it and will produce a warning if target number is an infinite,
 C<number> will treat Inf like a very large number, i.e. Inf is closest to Inf and
 largest positive numbers, -Inf is closest to -Inf and after that largest
 negative numbers.
+
+I'd reckon that C<number> is the behavior that most people want, but if you don't
+deal with infinites, you can just use C<nothing> (which is the default unless
+target number is infinite).
 
 =item * B<items> => I<int> (default: 1)
 
