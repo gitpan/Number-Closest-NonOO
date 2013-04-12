@@ -1,0 +1,24 @@
+---
+abstract: 'Find number(s) closest to a number in a list of numbers'
+author:
+  - 'Steven Haryanto <stevenharyanto@gmail.com>'
+build_requires:
+  Module::Build: 0.3601
+  Test::More: 0.98
+configure_requires:
+  Module::Build: 0.3601
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Number-Closest-NonOO
+requires:
+  Data::Clone: 0
+  Rinci: v1.1.35
+  perl: 5.010001
+resources:
+  homepage: http://metacpan.org/release/Number-Closest-NonOO
+  repository: http://github.com/sharyanto/perl-Number-Closest-NonOO
+version: 0.01

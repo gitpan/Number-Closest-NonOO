@@ -1,0 +1,120 @@
+NAME
+    Number::Closest::NonOO - Find number(s) closest to a number in a list of
+    numbers
+
+VERSION
+    version 0.01
+
+SYNOPSIS
+     use Number::Closest::NonOO qw(find_closest_number find_farthest_number);
+     my $nums = find_closest_number(number=>3, numbers=>[1, 3, 5, 10], items => 2);
+     # => [3, 1];
+
+     $nums = find_farthest_number(number=>3, numbers=>[1, 3, 5, 10]);
+
+DESCRIPTION
+FAQ
+  How do I find closest numbers that are {smaller, larger} than specified number?
+    You can filter (grep) your list of numbers first, for example to find
+    numbers that are closest *and smaller or equal to* 3:
+
+     my @nums = (1, 3, 5, 2, 4);
+     @nums = grep {$_ <= 3} @nums;
+     my $res = find_closest_number(number => 3, numbers => \@nums);
+
+  How do I find unique closest number(s)?
+    Perform uniq() (see List::MoreUtils) on the resulting numbers.
+
+SEE ALSO
+    Number::Closest. Number::Closest::NonOO is a non-OO version of
+    Number::Closest, with some additional features: customize handling
+    NaN/Inf, find farthest number.
+
+AUTHOR
+    Steven Haryanto <stevenharyanto@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2013 by Steven Haryanto.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
+
+FUNCTIONS
+    None are exported by default, but they are exportable.
+
+  find_closest_number(%args) -> any
+    Find number(s) closest to a number in a list of numbers.
+
+    Arguments ('*' denotes required arguments):
+
+    *   inf => *str* (default: "number")
+
+        Specify how to handle Inf.
+
+        "exclude" means the items will first be excluded from the list.
+        "nothing" will do nothing about it and will produce a warning if
+        target number is an infinite, "number" will treat Inf like a very
+        large number, i.e. Inf is closest to Inf and largest positive
+        numbers, -Inf is closest to -Inf and after that largest negative
+        numbers.
+
+    *   items => *int* (default: 1)
+
+        Return this number of closest numbers.
+
+    *   nan => *str* (default: "exclude")
+
+        Specify how to handle NaN and non-numbers.
+
+        "exclude" means the items will first be excluded from the list.
+        "nothing" will do nothing about it, meaning there will be warnings
+        when comparing non-numbers.
+
+    *   number* => *num*
+
+        The target number.
+
+    *   numbers* => *array*
+
+        The list of numbers.
+
+    Return value:
+
+  find_farthest_number(%args) -> any
+    Find number(s) farthest to a number in a list of numbers.
+
+    Arguments ('*' denotes required arguments):
+
+    *   inf => *str* (default: "number")
+
+        Specify how to handle Inf.
+
+        "exclude" means the items will first be excluded from the list.
+        "nothing" will do nothing about it and will produce a warning if
+        target number is an infinite, "number" will treat Inf like a very
+        large number, i.e. Inf is closest to Inf and largest positive
+        numbers, -Inf is closest to -Inf and after that largest negative
+        numbers.
+
+    *   items => *int* (default: 1)
+
+        Return this number of closest numbers.
+
+    *   nan => *str* (default: "exclude")
+
+        Specify how to handle NaN and non-numbers.
+
+        "exclude" means the items will first be excluded from the list.
+        "nothing" will do nothing about it, meaning there will be warnings
+        when comparing non-numbers.
+
+    *   number* => *num*
+
+        The target number.
+
+    *   numbers* => *array*
+
+        The list of numbers.
+
+    Return value:
+
