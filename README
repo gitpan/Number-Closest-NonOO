@@ -3,7 +3,7 @@ NAME
     numbers
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
      use Number::Closest::NonOO qw(find_closest_number find_farthest_number);
@@ -45,7 +45,7 @@ FUNCTIONS
 
     Arguments ('*' denotes required arguments):
 
-    *   inf => *str* (default: "number")
+    *   inf => *str* (default: "nothing")
 
         Specify how to handle Inf.
 
@@ -56,9 +56,10 @@ FUNCTIONS
         numbers, -Inf is closest to -Inf and after that largest negative
         numbers.
 
-        I'd reckon that "number" is the behavior that most people want, but
-        if you don't deal with infinites, you can just use "nothing" (which
-        is the default unless target number is infinite).
+        I'd reckon that "number" is the behavior that most people want when
+        dealing with infinites. But since it's slower, it's not the default
+        and you have to specify it specifically. You should choose "number"
+        if target number is infinite.
 
     *   items => *int* (default: 1)
 
@@ -87,7 +88,7 @@ FUNCTIONS
 
     Arguments ('*' denotes required arguments):
 
-    *   inf => *str* (default: "number")
+    *   inf => *str* (default: "nothing")
 
         Specify how to handle Inf.
 
@@ -98,9 +99,10 @@ FUNCTIONS
         numbers, -Inf is closest to -Inf and after that largest negative
         numbers.
 
-        I'd reckon that "number" is the behavior that most people want, but
-        if you don't deal with infinites, you can just use "nothing" (which
-        is the default unless target number is infinite).
+        I'd reckon that "number" is the behavior that most people want when
+        dealing with infinites. But since it's slower, it's not the default
+        and you have to specify it specifically. You should choose "number"
+        if target number is infinite.
 
     *   items => *int* (default: 1)
 

@@ -14,9 +14,9 @@ is(find_farthest_number(number=>1, numbers=>[1, 2, 3]), 3, "find_farthest_number
 is_deeply(find_closest_number(number=>1, numbers=>["-inf", -2, -1, 0, 1, 2, "inf"], items => 2),
           [1, 0], "inf=nothing 1");
 
-is_deeply(find_closest_number(number=> "inf", numbers=>["-inf", -2, -1, 0, 1, 2, "inf"], items => 10),
+is_deeply(find_closest_number(number=> "inf", numbers=>["-inf", -2, -1, 0, 1, 2, "inf"], inf=>"number", items => 10),
           ["inf", 2, 1, 0, -1, -2, "-inf"], "inf=number 1");
-is_deeply(find_closest_number(number=>"-inf", numbers=>["-inf", -2, -1, 0, 1, 2, "inf"], items => 10),
+is_deeply(find_closest_number(number=>"-inf", numbers=>["-inf", -2, -1, 0, 1, 2, "inf"], inf=>"number", items => 10),
           ["-inf", -2, -1, 0, 1, 2, "inf"], "inf=number 2");
 
 done_testing;

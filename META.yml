@@ -21,4 +21,4 @@ requires:
 resources:
   homepage: http://metacpan.org/release/Number-Closest-NonOO
   repository: http://github.com/sharyanto/perl-Number-Closest-NonOO
-version: 0.02
+version: 0.03

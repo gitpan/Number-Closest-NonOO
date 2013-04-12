@@ -7,7 +7,7 @@ use warnings;
 use Data::Clone;
 use Scalar::Util 'looks_like_number';
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
 
 require Exporter;
 our @ISA       = qw(Exporter);
@@ -19,7 +19,7 @@ sub _find {
 
     my $num = $args{number};
     my $nan = $args{nan} // 'nothing';
-    my $inf = $args{inf} // 'number';
+    my $inf = $args{inf} // 'nothing';
     my @nums = @{ $args{numbers} };
     if ($nan eq 'exclude' && $inf eq 'exclude') {
         @nums = grep {
@@ -41,7 +41,7 @@ sub _find {
 
     my @mapped;
     my @res;
-    if ($inf eq 'number' && ($num == "inf" || $num == "-inf")) {
+    if ($inf eq 'number') {
         @res =map {
             my $m = [$_];
             if    ($num ==  'inf' && $_ ==  'inf') { push @$m, 0, 0   }
@@ -50,6 +50,9 @@ sub _find {
             elsif ($num == '-inf' && $_ == '-inf') { push @$m, 0, 0   }
             elsif ($num ==  'inf') { push @$m,  $num, -$_ }
             elsif ($num == '-inf') { push @$m, -$num,  $_ }
+            elsif ($_   ==  'inf') { push @$m,    $_, -$_ }
+            elsif ($_   == '-inf') { push @$m,   -$_,  $_ }
+            else  { push @$m, abs($_-$num), 0 }
             $m;
         } @nums;
         #use Data::Dump; dd \@res;
@@ -101,7 +104,7 @@ _
         inf => {
             summary => 'Specify how to handle Inf',
             schema => ['str', in=>['number', 'nothing', 'exclude'],
-                       default=>'number'],
+                       default=>'nothing'],
             description => <<'_',
 
 `exclude` means the items will first be excluded from the list. `nothing` will
@@ -110,9 +113,9 @@ do nothing about it and will produce a warning if target number is an infinite,
 largest positive numbers, -Inf is closest to -Inf and after that largest
 negative numbers.
 
-I'd reckon that `number` is the behavior that most people want, but if you don't
-deal with infinites, you can just use `nothing` (which is the default unless
-target number is infinite).
+I'd reckon that `number` is the behavior that most people want when dealing with
+infinites. But since it's slower, it's not the default and you have to specify
+it specifically. You should choose `number` if target number is infinite.
 
 _
         },
@@ -147,7 +150,7 @@ Number::Closest::NonOO - Find number(s) closest to a number in a list of numbers
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -202,7 +205,7 @@ Arguments ('*' denotes required arguments):
 
 =over 4
 
-=item * B<inf> => I<str> (default: "number")
+=item * B<inf> => I<str> (default: "nothing")
 
 Specify how to handle Inf.
 
@@ -212,9 +215,9 @@ C<number> will treat Inf like a very large number, i.e. Inf is closest to Inf an
 largest positive numbers, -Inf is closest to -Inf and after that largest
 negative numbers.
 
-I'd reckon that C<number> is the behavior that most people want, but if you don't
-deal with infinites, you can just use C<nothing> (which is the default unless
-target number is infinite).
+I'd reckon that C<number> is the behavior that most people want when dealing with
+infinites. But since it's slower, it's not the default and you have to specify
+it specifically. You should choose C<number> if target number is infinite.
 
 =item * B<items> => I<int> (default: 1)
 
@@ -247,7 +250,7 @@ Arguments ('*' denotes required arguments):
 
 =over 4
 
-=item * B<inf> => I<str> (default: "number")
+=item * B<inf> => I<str> (default: "nothing")
 
 Specify how to handle Inf.
 
@@ -257,9 +260,9 @@ C<number> will treat Inf like a very large number, i.e. Inf is closest to Inf an
 largest positive numbers, -Inf is closest to -Inf and after that largest
 negative numbers.
 
-I'd reckon that C<number> is the behavior that most people want, but if you don't
-deal with infinites, you can just use C<nothing> (which is the default unless
-target number is infinite).
+I'd reckon that C<number> is the behavior that most people want when dealing with
+infinites. But since it's slower, it's not the default and you have to specify
+it specifically. You should choose C<number> if target number is infinite.
 
 =item * B<items> => I<int> (default: 1)
 
